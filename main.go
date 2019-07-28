@@ -91,20 +91,3 @@ func GetAccountWithID(cl monzo.Client, accountID string) (*monzo.Account, error)
 func FormatPenceToGbp(pennies int64) string {
 	return fmt.Sprintf("£%v", float64(pennies)/100)
 }
-
-func main() {
-	accessToken := "secret"
-	cl := GetClient(accessToken)
-	accountID := GetFirstAccountIDFromAccessToken(accessToken)
-	transactions, err := cl.Transactions(accountID, false) // don't expandMerchant
-	if err != nil {
-		fmt.Println(err)
-		return
-	}
-	for _, transaction := range transactions {
-		if transaction.Description == "MONTHLY SALARY" {
-			fmt.Println(transaction)
-		}
-	}
-
-}
