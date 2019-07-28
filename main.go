@@ -39,6 +39,7 @@ func GetClient(accessToken string) monzo.Client {
 	}
 }
 
+// ProcessDeposits submits the provided deposits through the Monzo API
 func ProcessDeposits(cl monzo.Client, deposits []*monzo.DepositRequest) error {
 	for _, deposit := range deposits {
 		_, err := cl.Deposit(deposit)
@@ -49,6 +50,7 @@ func ProcessDeposits(cl monzo.Client, deposits []*monzo.DepositRequest) error {
 	return nil
 }
 
+// GetActivePots gets all the active pots for given user.
 func GetActivePots(cl monzo.Client) ([]*monzo.Pot, error) {
 	allPots, err := cl.Pots()
 	if err != nil {
@@ -66,6 +68,8 @@ func GetActivePots(cl monzo.Client) ([]*monzo.Pot, error) {
 	return activePots, nil
 }
 
+// GetAccountWithID gets the go-monzo library representation of the Monzo account
+// with the provided ID.
 func GetAccountWithID(cl monzo.Client, accountID string) (*monzo.Account, error) {
 
 	accounts, err := cl.Accounts("uk_retail")
